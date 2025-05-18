@@ -84,6 +84,29 @@ const getUserById = async (req, res) => {
   }
 };
 
+// Update user by ID
+const updateUserById = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const updateFields = req.body;
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $set: updateFields },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({ message: "User updated successfully", user: updatedUser });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+};
+
+
 // Delete user by ID
 const deleteUserById = async (req, res) => {
   try {
@@ -97,4 +120,4 @@ const deleteUserById = async (req, res) => {
   }
 };
 
-module.exports = { signupUser, loginUser, getAllUsers, getUserById, deleteUserById };
+module.exports = { signupUser, loginUser, getAllUsers, getUserById, updateUserById, deleteUserById };

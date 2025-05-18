@@ -5,6 +5,7 @@ const {
   getAllUsers,
   getUserById,
   deleteUserById,
+  updateUserById,
 } = require("../controllers/UserController");
 
 // Route for user signup
@@ -21,5 +22,8 @@ routes.get("/users/:id", getUserById);
 
 // Route to delete a user by ID
 routes.delete("/users/:id", deleteUserById);
+
+routes.put('/update/:id', updateUserById);
+
 
 module.exports = routes;
